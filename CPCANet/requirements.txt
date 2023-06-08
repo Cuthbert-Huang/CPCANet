@@ -1,0 +1,5 @@
+matplotlib
+batchgenerators==0.21
+einops
+timm
+ml_collections

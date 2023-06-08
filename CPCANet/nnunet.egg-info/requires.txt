@@ -1,0 +1,13 @@
+torch>=1.6.0a
+tqdm
+dicom2nifti
+scikit-image>=0.14
+medpy
+scipy
+batchgenerators>=0.21
+numpy
+SimpleITK==2.0.2
+pandas
+requests
+nibabel
+tifffile
