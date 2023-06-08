@@ -1,0 +1,1663 @@
+Starting... 
+2023-02-06 19:57:48.943839: Hyper_parameters: base_learning_rate: 0.00013
+batch_size: 16
+blocks_num:
+- 3
+- 3
+- 12
+- 3
+channelAttention_reduce: 8
+convolution_stem_down: 8
+crop_size:
+- 512
+- 512
+epochs_num: 75
+hs: &id001 !!python/tuple
+- 64
+- 32
+- 16
+- 8
+model_size: Base
+reparam_conv_k: !!python/tuple
+- 1
+- 3
+sharesets_nums: !!python/tuple
+- 1
+- 4
+- 32
+- 128
+val_eval_criterion_alpha: 0
+window_size:
+- 8
+- 8
+- 16
+- 8
+ws: *id001
+ 
+2023-02-06 19:57:48.976039: seed: 42 
+2023-02-06 19:58:58.752057: This split has 900 training and 0 validation cases. 
+2023-02-06 20:01:52.278341: Batch size: 16 
+2023-02-06 20:01:52.315629: Patch size: [512, 512] 
+2023-02-06 20:05:31.781445: Unable to plot network architecture: 
+2023-02-06 20:05:31.806586: No module named 'hiddenlayer' 
+2023-02-06 20:05:31.810016: 
+printing the network instead:
+ 
+2023-02-06 20:05:31.815536: unet2022(
+  (model_down): encoder(
+    (patch_embed): PatchEmbed(
+      (project_block): ModuleList(
+        (0): project(
+          (conv1): Conv2d(3, 24, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (conv2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((24,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((24,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): project(
+          (conv1): Conv2d(24, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (conv2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((48,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((48,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): project(
+          (conv1): Conv2d(48, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (conv2): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (norm): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+    )
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (layers): ModuleList(
+      (0): BasicLayer(
+        (blocks): ModuleList(
+          (0): Block(
+            (dwconv): Conv2d(96, 96, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=96)
+            (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): Identity()
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(96, 384, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(96, 12, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(12, 96, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
+              (dconv1_7): Conv2d(96, 96, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=96)
+              (dconv7_1): Conv2d(96, 96, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=96)
+              (dconv1_11): Conv2d(96, 96, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=96)
+              (dconv11_1): Conv2d(96, 96, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=96)
+              (dconv1_21): Conv2d(96, 96, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=96)
+              (dconv21_1): Conv2d(96, 96, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=96)
+              (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (1): Block(
+            (dwconv): Conv2d(96, 96, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=96)
+            (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.010)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(96, 384, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(96, 12, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(12, 96, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
+              (dconv1_7): Conv2d(96, 96, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=96)
+              (dconv7_1): Conv2d(96, 96, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=96)
+              (dconv1_11): Conv2d(96, 96, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=96)
+              (dconv11_1): Conv2d(96, 96, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=96)
+              (dconv1_21): Conv2d(96, 96, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=96)
+              (dconv21_1): Conv2d(96, 96, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=96)
+              (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (2): Block(
+            (dwconv): Conv2d(96, 96, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=96)
+            (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.020)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(96, 384, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(96, 12, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(12, 96, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
+              (dconv1_7): Conv2d(96, 96, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=96)
+              (dconv7_1): Conv2d(96, 96, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=96)
+              (dconv1_11): Conv2d(96, 96, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=96)
+              (dconv11_1): Conv2d(96, 96, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=96)
+              (dconv1_21): Conv2d(96, 96, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=96)
+              (dconv21_1): Conv2d(96, 96, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=96)
+              (conv): Conv2d(96, 96, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (downsample): PatchMerging(
+          (reduction): Conv2d(96, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): BasicLayer(
+        (blocks): ModuleList(
+          (0): Block(
+            (dwconv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.030)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(192, 768, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(768, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=768)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(192, 24, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(24, 192, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192)
+              (dconv1_7): Conv2d(192, 192, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=192)
+              (dconv7_1): Conv2d(192, 192, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=192)
+              (dconv1_11): Conv2d(192, 192, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=192)
+              (dconv11_1): Conv2d(192, 192, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=192)
+              (dconv1_21): Conv2d(192, 192, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=192)
+              (dconv21_1): Conv2d(192, 192, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=192)
+              (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (1): Block(
+            (dwconv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.040)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(192, 768, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(768, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=768)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(192, 24, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(24, 192, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192)
+              (dconv1_7): Conv2d(192, 192, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=192)
+              (dconv7_1): Conv2d(192, 192, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=192)
+              (dconv1_11): Conv2d(192, 192, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=192)
+              (dconv11_1): Conv2d(192, 192, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=192)
+              (dconv1_21): Conv2d(192, 192, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=192)
+              (dconv21_1): Conv2d(192, 192, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=192)
+              (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (2): Block(
+            (dwconv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.050)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(192, 768, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(768, 192, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(768, 768, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=768)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(192, 24, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(24, 192, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=192)
+              (dconv1_7): Conv2d(192, 192, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=192)
+              (dconv7_1): Conv2d(192, 192, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=192)
+              (dconv1_11): Conv2d(192, 192, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=192)
+              (dconv11_1): Conv2d(192, 192, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=192)
+              (dconv1_21): Conv2d(192, 192, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=192)
+              (dconv21_1): Conv2d(192, 192, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=192)
+              (conv): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (downsample): PatchMerging(
+          (reduction): Conv2d(192, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): BasicLayer(
+        (blocks): ModuleList(
+          (0): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.060)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (1): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.070)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (2): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.080)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (3): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.090)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (4): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.100)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (5): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.110)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (6): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.120)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (7): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.130)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (8): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.140)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (9): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.150)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (10): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.160)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (11): Block(
+            (dwconv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.170)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(384, 1536, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(1536, 384, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(1536, 1536, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1536)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(48, 384, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(384, 384, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=384)
+              (dconv1_7): Conv2d(384, 384, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=384)
+              (dconv7_1): Conv2d(384, 384, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=384)
+              (dconv1_11): Conv2d(384, 384, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=384)
+              (dconv11_1): Conv2d(384, 384, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=384)
+              (dconv1_21): Conv2d(384, 384, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=384)
+              (dconv21_1): Conv2d(384, 384, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=384)
+              (conv): Conv2d(384, 384, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+        (downsample): PatchMerging(
+          (reduction): Conv2d(384, 768, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): BasicLayer(
+        (blocks): ModuleList(
+          (0): Block(
+            (dwconv): Conv2d(768, 768, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=768)
+            (bn): BatchNorm2d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.180)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(768, 3072, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(3072, 768, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(3072, 3072, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=3072)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(768, 96, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(96, 768, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(768, 768, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=768)
+              (dconv1_7): Conv2d(768, 768, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=768)
+              (dconv7_1): Conv2d(768, 768, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=768)
+              (dconv1_11): Conv2d(768, 768, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=768)
+              (dconv11_1): Conv2d(768, 768, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=768)
+              (dconv1_21): Conv2d(768, 768, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=768)
+              (dconv21_1): Conv2d(768, 768, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=768)
+              (conv): Conv2d(768, 768, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (1): Block(
+            (dwconv): Conv2d(768, 768, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=768)
+            (bn): BatchNorm2d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.190)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(768, 3072, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(3072, 768, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(3072, 3072, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=3072)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(768, 96, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(96, 768, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(768, 768, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=768)
+              (dconv1_7): Conv2d(768, 768, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=768)
+              (dconv7_1): Conv2d(768, 768, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=768)
+              (dconv1_11): Conv2d(768, 768, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=768)
+              (dconv11_1): Conv2d(768, 768, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=768)
+              (dconv1_21): Conv2d(768, 768, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=768)
+              (dconv21_1): Conv2d(768, 768, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=768)
+              (conv): Conv2d(768, 768, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+          (2): Block(
+            (dwconv): Conv2d(768, 768, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=768)
+            (bn): BatchNorm2d(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (norm): LayerNorm()
+            (drop_path): DropPath(drop_prob=0.200)
+            (ffn_block): FFNBlock2(
+              (conv1): Conv2d(768, 3072, kernel_size=(1, 1), stride=(1, 1))
+              (conv2): Conv2d(3072, 768, kernel_size=(1, 1), stride=(1, 1))
+              (dconv): Conv2d(3072, 3072, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=3072)
+              (act): GELU(approximate='none')
+            )
+            (repmlp_block): RepBlock(
+              (ca): ChannelAttention(
+                (fc1): Conv2d(768, 96, kernel_size=(1, 1), stride=(1, 1))
+                (fc2): Conv2d(96, 768, kernel_size=(1, 1), stride=(1, 1))
+              )
+              (dconv5_5): Conv2d(768, 768, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=768)
+              (dconv1_7): Conv2d(768, 768, kernel_size=(1, 7), stride=(1, 1), padding=(0, 3), groups=768)
+              (dconv7_1): Conv2d(768, 768, kernel_size=(7, 1), stride=(1, 1), padding=(3, 0), groups=768)
+              (dconv1_11): Conv2d(768, 768, kernel_size=(1, 11), stride=(1, 1), padding=(0, 5), groups=768)
+              (dconv11_1): Conv2d(768, 768, kernel_size=(11, 1), stride=(1, 1), padding=(5, 0), groups=768)
+              (dconv1_21): Conv2d(768, 768, kernel_size=(1, 21), stride=(1, 1), padding=(0, 10), groups=768)
+              (dconv21_1): Conv2d(768, 768, kernel_size=(21, 1), stride=(1, 1), padding=(10, 0), groups=768)
+              (conv): Conv2d(768, 768, kernel_size=(1, 1), stride=(1, 1))
+              (act): GELU(approximate='none')
+            )
+          )
+        )
+      )
+    )
+    (norm0): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+    (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+    (norm3): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  )
+  (decoder): decoder(
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (layers): ModuleList(
+      (0): BasicLayer_up(
+        (blocks): ModuleList(
+          (0): Block_up(
+            (conv): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn): BatchNorm2d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU()
+          )
+        )
+        (Upsample): Patch_Expanding(
+          (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+          (up): ConvTranspose2d(192, 96, kernel_size=(2, 2), stride=(2, 2))
+        )
+      )
+      (1): BasicLayer_up(
+        (blocks): ModuleList(
+          (0): Block_up(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU()
+          )
+          (1): Block_up(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU()
+          )
+        )
+        (Upsample): Patch_Expanding(
+          (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+          (up): ConvTranspose2d(384, 192, kernel_size=(2, 2), stride=(2, 2))
+        )
+      )
+      (2): BasicLayer_up(
+        (blocks): ModuleList(
+          (0): Block_up(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU()
+          )
+          (1): Block_up(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU()
+          )
+        )
+        (Upsample): Patch_Expanding(
+          (norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (up): ConvTranspose2d(768, 384, kernel_size=(2, 2), stride=(2, 2))
+        )
+      )
+    )
+  )
+  (final): ModuleList(
+    (0): final_patch_expanding(
+      (project_block): ModuleList(
+        (0): project_up(
+          (conv1): ConvTranspose2d(96, 48, kernel_size=(2, 2), stride=(2, 2))
+          (conv2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((48,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((48,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (up_final): ConvTranspose2d(48, 2, kernel_size=(4, 4), stride=(4, 4))
+    )
+    (1): final_patch_expanding(
+      (project_block): ModuleList(
+        (0): project_up(
+          (conv1): ConvTranspose2d(192, 96, kernel_size=(2, 2), stride=(2, 2))
+          (conv2): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((96,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (up_final): ConvTranspose2d(96, 2, kernel_size=(4, 4), stride=(4, 4))
+    )
+    (2): final_patch_expanding(
+      (project_block): ModuleList(
+        (0): project_up(
+          (conv1): ConvTranspose2d(384, 192, kernel_size=(2, 2), stride=(2, 2))
+          (conv2): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (activate): GELU(approximate='none')
+          (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (up_final): ConvTranspose2d(192, 2, kernel_size=(4, 4), stride=(4, 4))
+    )
+  )
+) 
+2023-02-06 20:05:31.853126: 
+ 
+2023-02-06 20:05:31.860434: 
+epoch:  0 
+2023-02-06 20:06:56.577704: train loss : -0.4515 
+2023-02-06 20:06:58.100961: Average global foreground Dice: [0.7237510859391586] 
+2023-02-06 20:06:58.106448: Average foreground Dice: 0.7237510859391586 
+2023-02-06 20:06:58.113009: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:07:04.097573: lr: 0.00013 
+2023-02-06 20:07:04.103512: current best_val_eval_criterion_MA is 0.72380 
+2023-02-06 20:07:04.107849: current val_eval_criterion_MA is 0.7238 
+2023-02-06 20:07:06.236761: This epoch took 94.372424 s
+ 
+2023-02-06 20:07:06.888913: 
+epoch:  1 
+2023-02-06 20:07:54.180640: train loss : -0.6630 
+2023-02-06 20:07:54.197932: Average global foreground Dice: [0.8259454042714145] 
+2023-02-06 20:07:54.211888: Average foreground Dice: 0.8259454042714145 
+2023-02-06 20:07:54.223053: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:07:59.959715: lr: 0.00013 
+2023-02-06 20:07:59.964391: current best_val_eval_criterion_MA is 0.72380 
+2023-02-06 20:07:59.999547: current val_eval_criterion_MA is 0.8259 
+2023-02-06 20:08:00.520745: saving checkpoint... 
+2023-02-06 20:08:05.340792: done, saving took 5.33 seconds 
+2023-02-06 20:08:06.322731: This epoch took 59.430184 s
+ 
+2023-02-06 20:08:06.328039: 
+epoch:  2 
+2023-02-06 20:08:52.793941: train loss : -0.7400 
+2023-02-06 20:08:53.405743: Average global foreground Dice: [0.8437427338330922] 
+2023-02-06 20:08:53.414463: Average foreground Dice: 0.8437427338330922 
+2023-02-06 20:08:53.418781: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:08:59.074335: lr: 0.00013 
+2023-02-06 20:08:59.102190: current best_val_eval_criterion_MA is 0.82590 
+2023-02-06 20:08:59.106763: current val_eval_criterion_MA is 0.8437 
+2023-02-06 20:08:59.257013: saving checkpoint... 
+2023-02-06 20:09:05.861945: done, saving took 6.75 seconds 
+2023-02-06 20:09:07.695466: This epoch took 61.363972 s
+ 
+2023-02-06 20:09:07.718571: 
+epoch:  3 
+2023-02-06 20:09:54.232083: train loss : -0.7809 
+2023-02-06 20:09:54.397799: Average global foreground Dice: [0.8526998701129028] 
+2023-02-06 20:09:54.417068: Average foreground Dice: 0.8526998701129028 
+2023-02-06 20:09:54.444277: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:09:59.893706: lr: 0.00013 
+2023-02-06 20:09:59.901493: current best_val_eval_criterion_MA is 0.84370 
+2023-02-06 20:09:59.906369: current val_eval_criterion_MA is 0.8527 
+2023-02-06 20:10:00.328875: saving checkpoint... 
+2023-02-06 20:10:04.957011: done, saving took 5.05 seconds 
+2023-02-06 20:10:06.200427: This epoch took 58.476976 s
+ 
+2023-02-06 20:10:06.310955: 
+epoch:  4 
+2023-02-06 20:10:51.008534: train loss : -0.8190 
+2023-02-06 20:10:51.303326: Average global foreground Dice: [0.8639359942358429] 
+2023-02-06 20:10:51.307991: Average foreground Dice: 0.8639359942358429 
+2023-02-06 20:10:51.312650: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:10:57.074885: lr: 0.00013 
+2023-02-06 20:10:57.102205: current best_val_eval_criterion_MA is 0.85270 
+2023-02-06 20:10:57.106167: current val_eval_criterion_MA is 0.8639 
+2023-02-06 20:10:57.255780: saving checkpoint... 
+2023-02-06 20:11:01.251417: done, saving took 4.14 seconds 
+2023-02-06 20:11:02.863089: This epoch took 56.530904 s
+ 
+2023-02-06 20:11:02.867863: 
+epoch:  5 
+2023-02-06 20:11:48.218613: train loss : -0.8394 
+2023-02-06 20:11:48.709486: Average global foreground Dice: [0.8733812199692549] 
+2023-02-06 20:11:48.715052: Average foreground Dice: 0.8733812199692549 
+2023-02-06 20:11:48.721665: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:11:54.700822: lr: 0.00013 
+2023-02-06 20:11:54.711041: current best_val_eval_criterion_MA is 0.86390 
+2023-02-06 20:11:54.715259: current val_eval_criterion_MA is 0.8734 
+2023-02-06 20:11:55.209875: saving checkpoint... 
+2023-02-06 20:12:00.366382: done, saving took 5.56 seconds 
+2023-02-06 20:12:01.880222: This epoch took 59.008619 s
+ 
+2023-02-06 20:12:01.889772: 
+epoch:  6 
+2023-02-06 20:12:49.095795: train loss : -0.8460 
+2023-02-06 20:12:49.274507: Average global foreground Dice: [0.8722954104820961] 
+2023-02-06 20:12:49.301420: Average foreground Dice: 0.8722954104820961 
+2023-02-06 20:12:49.307181: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:13:00.170588: lr: 0.00013 
+2023-02-06 20:13:00.180351: current best_val_eval_criterion_MA is 0.87340 
+2023-02-06 20:13:00.185010: current val_eval_criterion_MA is 0.8723 
+2023-02-06 20:13:00.717306: This epoch took 58.823592 s
+ 
+2023-02-06 20:13:00.736690: 
+epoch:  7 
+2023-02-06 20:13:46.277363: train loss : -0.8710 
+2023-02-06 20:13:46.704489: Average global foreground Dice: [0.8799358846582634] 
+2023-02-06 20:13:46.812369: Average foreground Dice: 0.8799358846582634 
+2023-02-06 20:13:46.831789: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:13:51.867775: lr: 0.00013 
+2023-02-06 20:13:51.920753: current best_val_eval_criterion_MA is 0.87340 
+2023-02-06 20:13:51.924534: current val_eval_criterion_MA is 0.8799 
+2023-02-06 20:13:52.148814: saving checkpoint... 
+2023-02-06 20:13:57.993563: done, saving took 6.06 seconds 
+2023-02-06 20:14:03.003193: This epoch took 62.260888 s
+ 
+2023-02-06 20:14:03.010234: 
+epoch:  8 
+2023-02-06 20:14:49.898241: train loss : -0.8808 
+2023-02-06 20:14:51.499172: Average global foreground Dice: [0.882061397559851] 
+2023-02-06 20:14:51.504211: Average foreground Dice: 0.882061397559851 
+2023-02-06 20:14:51.509262: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:15:01.056390: lr: 0.00013 
+2023-02-06 20:15:01.065582: current best_val_eval_criterion_MA is 0.87990 
+2023-02-06 20:15:01.070168: current val_eval_criterion_MA is 0.8821 
+2023-02-06 20:15:01.175123: saving checkpoint... 
+2023-02-06 20:15:03.913411: done, saving took 2.84 seconds 
+2023-02-06 20:15:04.967440: This epoch took 61.954173 s
+ 
+2023-02-06 20:15:05.239450: 
+epoch:  9 
+2023-02-06 20:15:50.889353: train loss : -0.8782 
+2023-02-06 20:15:53.807772: Average global foreground Dice: [0.8809241535253634] 
+2023-02-06 20:15:53.897275: Average foreground Dice: 0.8809241535253634 
+2023-02-06 20:15:53.919886: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:16:03.920254: lr: 0.00013 
+2023-02-06 20:16:03.925348: current best_val_eval_criterion_MA is 0.88210 
+2023-02-06 20:16:03.933689: current val_eval_criterion_MA is 0.8809 
+2023-02-06 20:16:04.722066: This epoch took 59.479059 s
+ 
+2023-02-06 20:16:04.732757: 
+epoch:  10 
+2023-02-06 20:16:49.736079: train loss : -0.8839 
+2023-02-06 20:16:49.764684: Average global foreground Dice: [0.8868744723297464] 
+2023-02-06 20:16:49.805501: Average foreground Dice: 0.8868744723297464 
+2023-02-06 20:16:49.898406: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:16:55.800118: lr: 0.00013 
+2023-02-06 20:16:55.807050: current best_val_eval_criterion_MA is 0.88210 
+2023-02-06 20:16:55.811400: current val_eval_criterion_MA is 0.8869 
+2023-02-06 20:16:56.044315: saving checkpoint... 
+2023-02-06 20:17:00.404944: done, saving took 4.59 seconds 
+2023-02-06 20:17:01.289867: This epoch took 56.551509 s
+ 
+2023-02-06 20:17:01.301021: 
+epoch:  11 
+2023-02-06 20:17:47.286124: train loss : -0.9078 
+2023-02-06 20:17:47.998285: Average global foreground Dice: [0.8912070360974889] 
+2023-02-06 20:17:48.001448: Average foreground Dice: 0.8912070360974889 
+2023-02-06 20:17:48.197569: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:17:53.931744: lr: 0.00013 
+2023-02-06 20:17:53.938390: current best_val_eval_criterion_MA is 0.88690 
+2023-02-06 20:17:53.942894: current val_eval_criterion_MA is 0.8912 
+2023-02-06 20:17:54.243959: saving checkpoint... 
+2023-02-06 20:18:00.326119: done, saving took 6.38 seconds 
+2023-02-06 20:18:02.565459: This epoch took 61.260299 s
+ 
+2023-02-06 20:18:02.595431: 
+epoch:  12 
+2023-02-06 20:18:49.714753: train loss : -0.9178 
+2023-02-06 20:18:49.730443: Average global foreground Dice: [0.8940676274734043] 
+2023-02-06 20:18:49.735393: Average foreground Dice: 0.8940676274734043 
+2023-02-06 20:18:49.740637: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:18:56.159501: lr: 0.00013 
+2023-02-06 20:18:56.166023: current best_val_eval_criterion_MA is 0.89120 
+2023-02-06 20:18:56.169461: current val_eval_criterion_MA is 0.8941 
+2023-02-06 20:18:56.341857: saving checkpoint... 
+2023-02-06 20:19:02.473231: done, saving took 6.27 seconds 
+2023-02-06 20:19:03.808872: This epoch took 61.192382 s
+ 
+2023-02-06 20:19:03.822777: 
+epoch:  13 
+2023-02-06 20:19:48.804727: train loss : -0.9163 
+2023-02-06 20:19:48.816535: Average global foreground Dice: [0.8941565300883523] 
+2023-02-06 20:19:48.821113: Average foreground Dice: 0.8941565300883523 
+2023-02-06 20:19:48.824489: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:19:55.275304: lr: 0.00013 
+2023-02-06 20:19:55.310150: current best_val_eval_criterion_MA is 0.89410 
+2023-02-06 20:19:55.315051: current val_eval_criterion_MA is 0.8942 
+2023-02-06 20:19:55.458180: saving checkpoint... 
+2023-02-06 20:20:01.049220: done, saving took 5.73 seconds 
+2023-02-06 20:20:01.893276: This epoch took 58.042645 s
+ 
+2023-02-06 20:20:01.896778: 
+epoch:  14 
+2023-02-06 20:20:48.196910: train loss : -0.9324 
+2023-02-06 20:20:48.600278: Average global foreground Dice: [0.8994479593656017] 
+2023-02-06 20:20:48.603615: Average foreground Dice: 0.8994479593656017 
+2023-02-06 20:20:48.608880: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:20:54.077791: lr: 0.00013 
+2023-02-06 20:20:54.098168: current best_val_eval_criterion_MA is 0.89420 
+2023-02-06 20:20:54.102093: current val_eval_criterion_MA is 0.8994 
+2023-02-06 20:20:54.498444: saving checkpoint... 
+2023-02-06 20:20:59.948016: done, saving took 5.84 seconds 
+2023-02-06 20:21:00.960319: This epoch took 59.058491 s
+ 
+2023-02-06 20:21:00.964710: 
+epoch:  15 
+2023-02-06 20:21:46.937087: train loss : -0.9345 
+2023-02-06 20:21:47.509396: Average global foreground Dice: [0.8988765979165666] 
+2023-02-06 20:21:47.522024: Average foreground Dice: 0.8988765979165666 
+2023-02-06 20:21:47.599762: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:21:54.329335: lr: 0.00013 
+2023-02-06 20:21:54.341110: current best_val_eval_criterion_MA is 0.89940 
+2023-02-06 20:21:54.348027: current val_eval_criterion_MA is 0.8989 
+2023-02-06 20:21:56.260463: This epoch took 55.291801 s
+ 
+2023-02-06 20:21:56.297317: 
+epoch:  16 
+2023-02-06 20:22:42.597937: train loss : -0.9370 
+2023-02-06 20:22:42.705321: Average global foreground Dice: [0.9024555135579435] 
+2023-02-06 20:22:42.711565: Average foreground Dice: 0.9024555135579435 
+2023-02-06 20:22:42.715601: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:22:52.042155: lr: 0.00013 
+2023-02-06 20:22:52.048505: current best_val_eval_criterion_MA is 0.89940 
+2023-02-06 20:22:52.052134: current val_eval_criterion_MA is 0.9025 
+2023-02-06 20:22:52.311083: saving checkpoint... 
+2023-02-06 20:22:54.998244: done, saving took 2.94 seconds 
+2023-02-06 20:22:55.821369: This epoch took 59.518454 s
+ 
+2023-02-06 20:22:55.827413: 
+epoch:  17 
+2023-02-06 20:23:41.325899: train loss : -0.9429 
+2023-02-06 20:23:41.353527: Average global foreground Dice: [0.9040127278000077] 
+2023-02-06 20:23:41.357411: Average foreground Dice: 0.9040127278000077 
+2023-02-06 20:23:41.403288: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:23:48.100103: lr: 0.00013 
+2023-02-06 20:23:48.106270: current best_val_eval_criterion_MA is 0.90250 
+2023-02-06 20:23:48.124455: current val_eval_criterion_MA is 0.9040 
+2023-02-06 20:23:48.319337: saving checkpoint... 
+2023-02-06 20:23:53.750133: done, saving took 5.62 seconds 
+2023-02-06 20:23:54.800591: This epoch took 58.968904 s
+ 
+2023-02-06 20:23:54.847553: 
+epoch:  18 
+2023-02-06 20:24:40.709006: train loss : -0.9504 
+2023-02-06 20:24:42.201377: Average global foreground Dice: [0.9050122336273132] 
+2023-02-06 20:24:42.205498: Average foreground Dice: 0.9050122336273132 
+2023-02-06 20:24:42.209402: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:24:49.933791: lr: 0.00013 
+2023-02-06 20:24:49.940852: current best_val_eval_criterion_MA is 0.90400 
+2023-02-06 20:24:49.947090: current val_eval_criterion_MA is 0.9050 
+2023-02-06 20:24:50.061296: saving checkpoint... 
+2023-02-06 20:24:54.399320: done, saving took 4.44 seconds 
+2023-02-06 20:24:55.350406: This epoch took 60.451648 s
+ 
+2023-02-06 20:24:55.354398: 
+epoch:  19 
+2023-02-06 20:25:42.109330: train loss : -0.9373 
+2023-02-06 20:25:42.802047: Average global foreground Dice: [0.9023900150690866] 
+2023-02-06 20:25:42.806707: Average foreground Dice: 0.9023900150690866 
+2023-02-06 20:25:42.812531: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:25:48.873449: lr: 0.00013 
+2023-02-06 20:25:48.905824: current best_val_eval_criterion_MA is 0.90500 
+2023-02-06 20:25:48.910646: current val_eval_criterion_MA is 0.9024 
+2023-02-06 20:25:51.033230: This epoch took 55.674889 s
+ 
+2023-02-06 20:25:51.037829: 
+epoch:  20 
+2023-02-06 20:26:38.437286: train loss : -0.9498 
+2023-02-06 20:26:41.300517: Average global foreground Dice: [0.9056378876120366] 
+2023-02-06 20:26:41.306785: Average foreground Dice: 0.9056378876120366 
+2023-02-06 20:26:41.312300: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:26:46.453136: lr: 0.00013 
+2023-02-06 20:26:46.500694: current best_val_eval_criterion_MA is 0.90500 
+2023-02-06 20:26:46.511708: current val_eval_criterion_MA is 0.9056 
+2023-02-06 20:26:46.711197: saving checkpoint... 
+2023-02-06 20:26:50.660122: done, saving took 4.14 seconds 
+2023-02-06 20:26:51.770684: This epoch took 60.728976 s
+ 
+2023-02-06 20:26:53.148321: 
+epoch:  21 
+2023-02-06 20:27:38.701056: train loss : -0.9510 
+2023-02-06 20:27:40.977654: Average global foreground Dice: [0.9061345754786334] 
+2023-02-06 20:27:41.001487: Average foreground Dice: 0.9061345754786334 
+2023-02-06 20:27:41.007992: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:27:45.748348: lr: 0.00013 
+2023-02-06 20:27:45.755094: current best_val_eval_criterion_MA is 0.90560 
+2023-02-06 20:27:45.806471: current val_eval_criterion_MA is 0.9061 
+2023-02-06 20:27:46.015797: saving checkpoint... 
+2023-02-06 20:27:51.201427: done, saving took 5.37 seconds 
+2023-02-06 20:27:52.590342: This epoch took 59.430452 s
+ 
+2023-02-06 20:27:52.681933: 
+epoch:  22 
+2023-02-06 20:28:37.690593: train loss : -0.9662 
+2023-02-06 20:28:37.801660: Average global foreground Dice: [0.9113860470869488] 
+2023-02-06 20:28:37.806371: Average foreground Dice: 0.9113860470869488 
+2023-02-06 20:28:37.811568: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:28:45.098996: lr: 0.00013 
+2023-02-06 20:28:45.119698: current best_val_eval_criterion_MA is 0.90610 
+2023-02-06 20:28:45.198358: current val_eval_criterion_MA is 0.9114 
+2023-02-06 20:28:45.423793: saving checkpoint... 
+2023-02-06 20:28:51.090322: done, saving took 5.87 seconds 
+2023-02-06 20:28:52.457544: This epoch took 59.768846 s
+ 
+2023-02-06 20:28:52.470676: 
+epoch:  23 
+2023-02-06 20:29:38.591545: train loss : -0.9671 
+2023-02-06 20:29:38.997673: Average global foreground Dice: [0.9103091767836203] 
+2023-02-06 20:29:39.014086: Average foreground Dice: 0.9103091767836203 
+2023-02-06 20:29:39.210203: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:29:47.522036: lr: 0.00013 
+2023-02-06 20:29:47.533701: current best_val_eval_criterion_MA is 0.91140 
+2023-02-06 20:29:47.538865: current val_eval_criterion_MA is 0.9103 
+2023-02-06 20:29:48.410556: This epoch took 55.923348 s
+ 
+2023-02-06 20:29:48.427973: 
+epoch:  24 
+2023-02-06 20:30:36.295723: train loss : -0.9650 
+2023-02-06 20:30:36.412247: Average global foreground Dice: [0.910397131917953] 
+2023-02-06 20:30:36.506196: Average foreground Dice: 0.910397131917953 
+2023-02-06 20:30:36.518304: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:30:42.502613: lr: 0.00013 
+2023-02-06 20:30:42.597629: current best_val_eval_criterion_MA is 0.91140 
+2023-02-06 20:30:42.605665: current val_eval_criterion_MA is 0.9104 
+2023-02-06 20:30:44.819343: This epoch took 56.387809 s
+ 
+2023-02-06 20:30:44.823446: 
+epoch:  25 
+2023-02-06 20:31:33.298218: train loss : -0.9720 
+2023-02-06 20:31:34.799906: Average global foreground Dice: [0.9123416318605517] 
+2023-02-06 20:31:34.809118: Average foreground Dice: 0.9123416318605517 
+2023-02-06 20:31:34.812347: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:31:42.465788: lr: 0.00013 
+2023-02-06 20:31:42.499393: current best_val_eval_criterion_MA is 0.91140 
+2023-02-06 20:31:42.503294: current val_eval_criterion_MA is 0.9123 
+2023-02-06 20:31:42.719119: saving checkpoint... 
+2023-02-06 20:31:46.207753: done, saving took 3.70 seconds 
+2023-02-06 20:31:48.166589: This epoch took 63.340214 s
+ 
+2023-02-06 20:31:48.569992: 
+epoch:  26 
+2023-02-06 20:32:35.591205: train loss : -0.9664 
+2023-02-06 20:32:36.500886: Average global foreground Dice: [0.9110820033630976] 
+2023-02-06 20:32:36.597441: Average foreground Dice: 0.9110820033630976 
+2023-02-06 20:32:36.603025: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:32:44.401284: lr: 0.00013 
+2023-02-06 20:32:44.406070: current best_val_eval_criterion_MA is 0.91230 
+2023-02-06 20:32:44.413893: current val_eval_criterion_MA is 0.9111 
+2023-02-06 20:32:46.281212: This epoch took 57.690370 s
+ 
+2023-02-06 20:32:46.286770: 
+epoch:  27 
+2023-02-06 20:33:33.283104: train loss : -0.9667 
+2023-02-06 20:33:33.998265: Average global foreground Dice: [0.9099754034618039] 
+2023-02-06 20:33:34.097420: Average foreground Dice: 0.9099754034618039 
+2023-02-06 20:33:34.103243: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:33:39.340310: lr: 0.00013 
+2023-02-06 20:33:39.345971: current best_val_eval_criterion_MA is 0.91230 
+2023-02-06 20:33:39.350253: current val_eval_criterion_MA is 0.9100 
+2023-02-06 20:33:40.607593: This epoch took 54.308488 s
+ 
+2023-02-06 20:33:40.938387: 
+epoch:  28 
+2023-02-06 20:34:27.978693: train loss : -0.9514 
+2023-02-06 20:34:28.398588: Average global foreground Dice: [0.9072613857647244] 
+2023-02-06 20:34:28.405073: Average foreground Dice: 0.9072613857647244 
+2023-02-06 20:34:28.597502: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:34:38.110953: lr: 0.00013 
+2023-02-06 20:34:38.157607: current best_val_eval_criterion_MA is 0.91230 
+2023-02-06 20:34:38.162221: current val_eval_criterion_MA is 0.9073 
+2023-02-06 20:34:38.998864: This epoch took 58.036814 s
+ 
+2023-02-06 20:34:39.003770: 
+epoch:  29 
+2023-02-06 20:35:24.500947: train loss : -0.9798 
+2023-02-06 20:35:24.634896: Average global foreground Dice: [0.9166518087459893] 
+2023-02-06 20:35:24.698668: Average foreground Dice: 0.9166518087459893 
+2023-02-06 20:35:24.703125: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:35:30.567430: lr: 0.00013 
+2023-02-06 20:35:30.600910: current best_val_eval_criterion_MA is 0.91230 
+2023-02-06 20:35:30.605669: current val_eval_criterion_MA is 0.9167 
+2023-02-06 20:35:30.820864: saving checkpoint... 
+2023-02-06 20:35:35.245480: done, saving took 4.64 seconds 
+2023-02-06 20:35:36.412763: This epoch took 57.404112 s
+ 
+2023-02-06 20:35:36.729091: 
+epoch:  30 
+2023-02-06 20:36:22.306047: train loss : -0.9747 
+2023-02-06 20:36:24.300491: Average global foreground Dice: [0.9137888066907619] 
+2023-02-06 20:36:24.600864: Average foreground Dice: 0.9137888066907619 
+2023-02-06 20:36:24.610578: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:36:28.599031: lr: 0.00013 
+2023-02-06 20:36:28.603792: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:36:28.626477: current val_eval_criterion_MA is 0.9138 
+2023-02-06 20:36:30.828464: This epoch took 54.092514 s
+ 
+2023-02-06 20:36:30.906588: 
+epoch:  31 
+2023-02-06 20:37:17.082959: train loss : -0.9812 
+2023-02-06 20:37:17.205054: Average global foreground Dice: [0.9166313052466319] 
+2023-02-06 20:37:17.212564: Average foreground Dice: 0.9166313052466319 
+2023-02-06 20:37:17.499005: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:37:24.021616: lr: 0.00013 
+2023-02-06 20:37:24.098494: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:37:24.142745: current val_eval_criterion_MA is 0.9166 
+2023-02-06 20:37:25.710717: This epoch took 54.759582 s
+ 
+2023-02-06 20:37:25.722445: 
+epoch:  32 
+2023-02-06 20:38:12.505563: train loss : -0.9781 
+2023-02-06 20:38:27.906984: Average global foreground Dice: [0.9166933611392126] 
+2023-02-06 20:38:27.911038: Average foreground Dice: 0.9166933611392126 
+2023-02-06 20:38:27.916156: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:38:28.537403: lr: 0.00013 
+2023-02-06 20:38:28.541695: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:38:28.553839: current val_eval_criterion_MA is 0.9167 
+2023-02-06 20:38:28.673542: saving checkpoint... 
+2023-02-06 20:38:31.287212: done, saving took 2.73 seconds 
+2023-02-06 20:38:34.575468: This epoch took 68.838034 s
+ 
+2023-02-06 20:38:34.585866: 
+epoch:  33 
+2023-02-06 20:39:19.088282: train loss : -0.9812 
+2023-02-06 20:39:19.310271: Average global foreground Dice: [0.9161821361627215] 
+2023-02-06 20:39:19.428604: Average foreground Dice: 0.9161821361627215 
+2023-02-06 20:39:19.597520: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:39:25.544505: lr: 0.00013 
+2023-02-06 20:39:25.552207: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:39:25.556522: current val_eval_criterion_MA is 0.9162 
+2023-02-06 20:39:26.855548: This epoch took 52.258799 s
+ 
+2023-02-06 20:39:27.335734: 
+epoch:  34 
+2023-02-06 20:40:13.900165: train loss : -0.9795 
+2023-02-06 20:40:14.808456: Average global foreground Dice: [0.9149230920982466] 
+2023-02-06 20:40:14.900051: Average foreground Dice: 0.9149230920982466 
+2023-02-06 20:40:14.905723: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:40:22.805296: lr: 0.00013 
+2023-02-06 20:40:22.813903: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:40:22.817679: current val_eval_criterion_MA is 0.9149 
+2023-02-06 20:40:24.149860: This epoch took 56.809018 s
+ 
+2023-02-06 20:40:24.166020: 
+epoch:  35 
+2023-02-06 20:41:11.151500: train loss : -0.9858 
+2023-02-06 20:41:11.298117: Average global foreground Dice: [0.9185117814321723] 
+2023-02-06 20:41:11.321082: Average foreground Dice: 0.9185117814321723 
+2023-02-06 20:41:11.500291: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:41:17.598784: lr: 0.00013 
+2023-02-06 20:41:17.604175: current best_val_eval_criterion_MA is 0.91670 
+2023-02-06 20:41:17.608546: current val_eval_criterion_MA is 0.9185 
+2023-02-06 20:41:17.936735: saving checkpoint... 
+2023-02-06 20:41:22.710860: done, saving took 5.10 seconds 
+2023-02-06 20:41:23.791008: This epoch took 59.621759 s
+ 
+2023-02-06 20:41:23.795239: 
+epoch:  36 
+2023-02-06 20:42:07.975522: train loss : -0.9836 
+2023-02-06 20:42:09.008574: Average global foreground Dice: [0.9178702844277847] 
+2023-02-06 20:42:09.036498: Average foreground Dice: 0.9178702844277847 
+2023-02-06 20:42:09.061502: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:42:15.820834: lr: 0.00013 
+2023-02-06 20:42:15.825946: current best_val_eval_criterion_MA is 0.91850 
+2023-02-06 20:42:15.855213: current val_eval_criterion_MA is 0.9179 
+2023-02-06 20:42:17.039898: This epoch took 53.241089 s
+ 
+2023-02-06 20:42:17.048197: 
+epoch:  37 
+2023-02-06 20:43:01.896826: train loss : -0.9907 
+2023-02-06 20:43:02.405788: Average global foreground Dice: [0.919907489093321] 
+2023-02-06 20:43:02.413476: Average foreground Dice: 0.919907489093321 
+2023-02-06 20:43:02.498341: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:43:09.001247: lr: 0.00013 
+2023-02-06 20:43:09.015222: current best_val_eval_criterion_MA is 0.91850 
+2023-02-06 20:43:09.025806: current val_eval_criterion_MA is 0.9199 
+2023-02-06 20:43:09.409238: saving checkpoint... 
+2023-02-06 20:43:14.520666: done, saving took 5.48 seconds 
+2023-02-06 20:43:16.065008: This epoch took 59.013236 s
+ 
+2023-02-06 20:43:16.073854: 
+epoch:  38 
+2023-02-06 20:44:00.492697: train loss : -0.9990 
+2023-02-06 20:44:00.564974: Average global foreground Dice: [0.92314840595972] 
+2023-02-06 20:44:00.625670: Average foreground Dice: 0.92314840595972 
+2023-02-06 20:44:00.805973: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:44:06.898557: lr: 0.00013 
+2023-02-06 20:44:06.931663: current best_val_eval_criterion_MA is 0.91990 
+2023-02-06 20:44:06.940222: current val_eval_criterion_MA is 0.9231 
+2023-02-06 20:44:07.129671: saving checkpoint... 
+2023-02-06 20:44:11.750731: done, saving took 4.81 seconds 
+2023-02-06 20:44:12.347443: This epoch took 56.227733 s
+ 
+2023-02-06 20:44:12.615018: 
+epoch:  39 
+2023-02-06 20:44:58.582784: train loss : -1.0066 
+2023-02-06 20:44:58.702292: Average global foreground Dice: [0.926532992935666] 
+2023-02-06 20:44:58.706669: Average foreground Dice: 0.926532992935666 
+2023-02-06 20:44:58.710574: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:45:04.707973: lr: 0.00013 
+2023-02-06 20:45:04.713240: current best_val_eval_criterion_MA is 0.92310 
+2023-02-06 20:45:04.813240: current val_eval_criterion_MA is 0.9265 
+2023-02-06 20:45:05.117597: saving checkpoint... 
+2023-02-06 20:45:12.774457: done, saving took 7.87 seconds 
+2023-02-06 20:45:14.456644: This epoch took 61.831560 s
+ 
+2023-02-06 20:45:14.461927: 
+epoch:  40 
+2023-02-06 20:45:59.148865: train loss : -0.9846 
+2023-02-06 20:45:59.508223: Average global foreground Dice: [0.9179684305742978] 
+2023-02-06 20:45:59.514368: Average foreground Dice: 0.9179684305742978 
+2023-02-06 20:45:59.705371: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:46:05.898366: lr: 0.00013 
+2023-02-06 20:46:07.512452: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:46:08.156188: current val_eval_criterion_MA is 0.9180 
+2023-02-06 20:46:10.147553: This epoch took 55.678450 s
+ 
+2023-02-06 20:46:10.527668: 
+epoch:  41 
+2023-02-06 20:46:58.148327: train loss : -0.9908 
+2023-02-06 20:46:58.165910: Average global foreground Dice: [0.9201451341119862] 
+2023-02-06 20:46:58.169701: Average foreground Dice: 0.9201451341119862 
+2023-02-06 20:46:58.173866: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:47:04.785316: lr: 0.00013 
+2023-02-06 20:47:04.802235: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:47:04.807516: current val_eval_criterion_MA is 0.9201 
+2023-02-06 20:47:07.624820: This epoch took 57.092880 s
+ 
+2023-02-06 20:47:09.582834: 
+epoch:  42 
+2023-02-06 20:47:57.715396: train loss : -0.9930 
+2023-02-06 20:47:57.999116: Average global foreground Dice: [0.9199402152089627] 
+2023-02-06 20:47:58.101504: Average foreground Dice: 0.9199402152089627 
+2023-02-06 20:47:58.109632: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:48:06.901130: lr: 0.00013 
+2023-02-06 20:48:06.908368: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:48:06.927963: current val_eval_criterion_MA is 0.9199 
+2023-02-06 20:48:08.868507: This epoch took 59.276304 s
+ 
+2023-02-06 20:48:08.894248: 
+epoch:  43 
+2023-02-06 20:48:56.292403: train loss : -1.0009 
+2023-02-06 20:48:56.498225: Average global foreground Dice: [0.9228789772797199] 
+2023-02-06 20:48:56.504006: Average foreground Dice: 0.9228789772797199 
+2023-02-06 20:48:56.507668: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:49:02.641535: lr: 0.00013 
+2023-02-06 20:49:02.646525: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:49:02.649450: current val_eval_criterion_MA is 0.9229 
+2023-02-06 20:49:06.519956: This epoch took 57.621372 s
+ 
+2023-02-06 20:49:06.531317: 
+epoch:  44 
+2023-02-06 20:49:56.588114: train loss : -1.0075 
+2023-02-06 20:49:56.821894: Average global foreground Dice: [0.9260280765208149] 
+2023-02-06 20:49:56.902198: Average foreground Dice: 0.9260280765208149 
+2023-02-06 20:49:56.908026: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:50:06.965066: lr: 0.00013 
+2023-02-06 20:50:06.970320: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:50:06.973960: current val_eval_criterion_MA is 0.9260 
+2023-02-06 20:50:09.105813: This epoch took 62.569907 s
+ 
+2023-02-06 20:50:09.429038: 
+epoch:  45 
+2023-02-06 20:50:57.209768: train loss : -1.0011 
+2023-02-06 20:50:57.398228: Average global foreground Dice: [0.9233252581278704] 
+2023-02-06 20:50:57.405003: Average foreground Dice: 0.9233252581278704 
+2023-02-06 20:50:57.497427: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:51:03.757979: lr: 0.00013 
+2023-02-06 20:51:03.804996: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:51:03.808794: current val_eval_criterion_MA is 0.9233 
+2023-02-06 20:51:06.183547: This epoch took 56.715178 s
+ 
+2023-02-06 20:51:06.219855: 
+epoch:  46 
+2023-02-06 20:51:51.692307: train loss : -0.9930 
+2023-02-06 20:51:53.799979: Average global foreground Dice: [0.9212409039957357] 
+2023-02-06 20:51:53.817163: Average foreground Dice: 0.9212409039957357 
+2023-02-06 20:51:53.900912: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:52:00.017516: lr: 0.00013 
+2023-02-06 20:52:00.123154: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:52:00.199741: current val_eval_criterion_MA is 0.9212 
+2023-02-06 20:52:01.956278: This epoch took 55.732032 s
+ 
+2023-02-06 20:52:02.401400: 
+epoch:  47 
+2023-02-06 20:52:49.549337: train loss : -0.9990 
+2023-02-06 20:52:50.098081: Average global foreground Dice: [0.9227667016787536] 
+2023-02-06 20:52:50.200407: Average foreground Dice: 0.9227667016787536 
+2023-02-06 20:52:50.207033: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:52:56.647028: lr: 0.00013 
+2023-02-06 20:52:56.653074: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:52:56.657541: current val_eval_criterion_MA is 0.9228 
+2023-02-06 20:52:59.213670: This epoch took 56.800694 s
+ 
+2023-02-06 20:52:59.235846: 
+epoch:  48 
+2023-02-06 20:53:46.620818: train loss : -0.9975 
+2023-02-06 20:53:47.801335: Average global foreground Dice: [0.9222550179321631] 
+2023-02-06 20:53:47.805959: Average foreground Dice: 0.9222550179321631 
+2023-02-06 20:53:47.812017: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:53:52.766307: lr: 0.00013 
+2023-02-06 20:53:52.771988: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:53:52.777577: current val_eval_criterion_MA is 0.9223 
+2023-02-06 20:53:55.945618: This epoch took 56.610497 s
+ 
+2023-02-06 20:53:55.958607: 
+epoch:  49 
+2023-02-06 20:54:43.631333: train loss : -1.0106 
+2023-02-06 20:54:45.601000: Average global foreground Dice: [0.9269221750105626] 
+2023-02-06 20:54:45.606322: Average foreground Dice: 0.9269221750105626 
+2023-02-06 20:54:45.697308: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:54:51.111169: lr: 0.00013 
+2023-02-06 20:54:51.115652: current best_val_eval_criterion_MA is 0.92650 
+2023-02-06 20:54:51.122022: current val_eval_criterion_MA is 0.9269 
+2023-02-06 20:54:51.337301: saving checkpoint... 
+2023-02-06 20:54:56.867755: done, saving took 5.74 seconds 
+2023-02-06 20:54:58.470118: This epoch took 62.502254 s
+ 
+2023-02-06 20:54:58.474718: 
+epoch:  50 
+2023-02-06 20:55:46.293972: train loss : -1.0100 
+2023-02-06 20:55:47.805136: Average global foreground Dice: [0.9270166727731738] 
+2023-02-06 20:55:47.897512: Average foreground Dice: 0.9270166727731738 
+2023-02-06 20:55:47.902117: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:55:54.000607: lr: 0.00013 
+2023-02-06 20:55:54.099203: current best_val_eval_criterion_MA is 0.92690 
+2023-02-06 20:55:54.102836: current val_eval_criterion_MA is 0.9270 
+2023-02-06 20:55:54.745945: saving checkpoint... 
+2023-02-06 20:56:01.532418: done, saving took 7.41 seconds 
+2023-02-06 20:56:02.710976: This epoch took 64.232973 s
+ 
+2023-02-06 20:56:02.716684: 
+epoch:  51 
+2023-02-06 20:56:49.840818: train loss : -1.0146 
+2023-02-06 20:56:50.001642: Average global foreground Dice: [0.929186603639318] 
+2023-02-06 20:56:50.008471: Average foreground Dice: 0.929186603639318 
+2023-02-06 20:56:50.104305: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:56:58.697301: lr: 0.00013 
+2023-02-06 20:56:58.705861: current best_val_eval_criterion_MA is 0.92700 
+2023-02-06 20:56:58.746155: current val_eval_criterion_MA is 0.9292 
+2023-02-06 20:56:58.872833: saving checkpoint... 
+2023-02-06 20:57:02.078774: done, saving took 3.33 seconds 
+2023-02-06 20:57:04.885305: This epoch took 62.164555 s
+ 
+2023-02-06 20:57:05.474159: 
+epoch:  52 
+2023-02-06 20:57:52.433998: train loss : -1.0140 
+2023-02-06 20:57:52.600305: Average global foreground Dice: [0.9285696593696411] 
+2023-02-06 20:57:52.697362: Average foreground Dice: 0.9285696593696411 
+2023-02-06 20:57:52.997238: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:57:59.268996: lr: 0.00013 
+2023-02-06 20:57:59.318093: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 20:57:59.322928: current val_eval_criterion_MA is 0.9286 
+2023-02-06 20:58:01.438693: This epoch took 55.956284 s
+ 
+2023-02-06 20:58:01.728239: 
+epoch:  53 
+2023-02-06 20:58:50.497870: train loss : -1.0072 
+2023-02-06 20:58:52.109026: Average global foreground Dice: [0.9249792586312634] 
+2023-02-06 20:58:52.205585: Average foreground Dice: 0.9249792586312634 
+2023-02-06 20:58:52.397457: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:58:57.168651: lr: 0.00013 
+2023-02-06 20:58:57.203918: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 20:58:57.208404: current val_eval_criterion_MA is 0.9250 
+2023-02-06 20:58:59.842460: This epoch took 58.109240 s
+ 
+2023-02-06 20:58:59.903683: 
+epoch:  54 
+2023-02-06 20:59:46.509843: train loss : -1.0005 
+2023-02-06 20:59:47.499340: Average global foreground Dice: [0.9233917712236502] 
+2023-02-06 20:59:47.502409: Average foreground Dice: 0.9233917712236502 
+2023-02-06 20:59:47.509506: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 20:59:54.202055: lr: 0.00013 
+2023-02-06 20:59:54.299978: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 20:59:54.311243: current val_eval_criterion_MA is 0.9234 
+2023-02-06 20:59:56.361228: This epoch took 56.263847 s
+ 
+2023-02-06 20:59:56.426389: 
+epoch:  55 
+2023-02-06 21:00:42.874550: train loss : -1.0008 
+2023-02-06 21:00:43.822933: Average global foreground Dice: [0.9236433811158837] 
+2023-02-06 21:00:43.920740: Average foreground Dice: 0.9236433811158837 
+2023-02-06 21:00:43.925367: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:00:49.456847: lr: 0.00013 
+2023-02-06 21:00:49.503422: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 21:00:49.514548: current val_eval_criterion_MA is 0.9236 
+2023-02-06 21:00:51.797443: This epoch took 55.367522 s
+ 
+2023-02-06 21:00:51.803029: 
+epoch:  56 
+2023-02-06 21:01:39.495825: train loss : -0.9959 
+2023-02-06 21:01:40.001305: Average global foreground Dice: [0.9211457647265742] 
+2023-02-06 21:01:40.008220: Average foreground Dice: 0.9211457647265742 
+2023-02-06 21:01:40.105240: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:01:45.722301: lr: 0.00013 
+2023-02-06 21:01:45.728740: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 21:01:45.732343: current val_eval_criterion_MA is 0.9211 
+2023-02-06 21:01:48.902004: This epoch took 57.094822 s
+ 
+2023-02-06 21:01:48.913431: 
+epoch:  57 
+2023-02-06 21:02:34.480617: train loss : -1.0121 
+2023-02-06 21:02:36.201888: Average global foreground Dice: [0.9271085349078376] 
+2023-02-06 21:02:36.206744: Average foreground Dice: 0.9271085349078376 
+2023-02-06 21:02:36.300009: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:02:40.695097: lr: 0.00013 
+2023-02-06 21:02:40.700389: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 21:02:40.703616: current val_eval_criterion_MA is 0.9271 
+2023-02-06 21:02:43.110527: This epoch took 54.191760 s
+ 
+2023-02-06 21:02:43.862792: 
+epoch:  58 
+2023-02-06 21:03:30.894839: train loss : -1.0191 
+2023-02-06 21:03:31.097433: Average global foreground Dice: [0.9304786666773002] 
+2023-02-06 21:03:32.197549: Average foreground Dice: 0.9304786666773002 
+2023-02-06 21:03:32.203560: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:03:37.040816: lr: 0.00013 
+2023-02-06 21:03:37.048430: current best_val_eval_criterion_MA is 0.92920 
+2023-02-06 21:03:37.051689: current val_eval_criterion_MA is 0.9305 
+2023-02-06 21:03:37.300400: saving checkpoint... 
+2023-02-06 21:03:41.051059: done, saving took 3.99 seconds 
+2023-02-06 21:03:42.730106: This epoch took 58.864371 s
+ 
+2023-02-06 21:03:45.186579: 
+epoch:  59 
+2023-02-06 21:04:32.621779: train loss : -1.0100 
+2023-02-06 21:04:33.099640: Average global foreground Dice: [0.927086786997852] 
+2023-02-06 21:04:33.111720: Average foreground Dice: 0.927086786997852 
+2023-02-06 21:04:33.115290: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:04:40.003294: lr: 0.00013 
+2023-02-06 21:04:40.010472: current best_val_eval_criterion_MA is 0.93050 
+2023-02-06 21:04:40.018874: current val_eval_criterion_MA is 0.9271 
+2023-02-06 21:04:42.542958: This epoch took 57.341545 s
+ 
+2023-02-06 21:04:42.571107: 
+epoch:  60 
+2023-02-06 21:05:30.800483: train loss : -1.0122 
+2023-02-06 21:05:30.904420: Average global foreground Dice: [0.9281216850132664] 
+2023-02-06 21:05:30.912661: Average foreground Dice: 0.9281216850132664 
+2023-02-06 21:05:30.923969: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:05:36.918790: lr: 0.00013 
+2023-02-06 21:05:36.929071: current best_val_eval_criterion_MA is 0.93050 
+2023-02-06 21:05:36.933054: current val_eval_criterion_MA is 0.9281 
+2023-02-06 21:05:40.442643: This epoch took 57.864877 s
+ 
+2023-02-06 21:05:40.463919: 
+epoch:  61 
+2023-02-06 21:06:29.093704: train loss : -1.0169 
+2023-02-06 21:06:29.217115: Average global foreground Dice: [0.9299850965248962] 
+2023-02-06 21:06:29.406421: Average foreground Dice: 0.9299850965248962 
+2023-02-06 21:06:29.498170: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:06:38.254917: lr: 0.00013 
+2023-02-06 21:06:38.261501: current best_val_eval_criterion_MA is 0.93050 
+2023-02-06 21:06:38.298826: current val_eval_criterion_MA is 0.9300 
+2023-02-06 21:06:40.136031: This epoch took 59.638513 s
+ 
+2023-02-06 21:06:40.140600: 
+epoch:  62 
+2023-02-06 21:07:27.090152: train loss : -1.0162 
+2023-02-06 21:07:30.209230: Average global foreground Dice: [0.9303864068497762] 
+2023-02-06 21:07:30.213756: Average foreground Dice: 0.9303864068497762 
+2023-02-06 21:07:30.306905: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:07:33.869063: lr: 0.00013 
+2023-02-06 21:07:33.901778: current best_val_eval_criterion_MA is 0.93050 
+2023-02-06 21:07:33.906334: current val_eval_criterion_MA is 0.9304 
+2023-02-06 21:07:37.051193: This epoch took 56.901329 s
+ 
+2023-02-06 21:07:38.215216: 
+epoch:  63 
+2023-02-06 21:08:24.802039: train loss : -1.0188 
+2023-02-06 21:08:26.799751: Average global foreground Dice: [0.930630269571535] 
+2023-02-06 21:08:26.897517: Average foreground Dice: 0.930630269571535 
+2023-02-06 21:08:26.901744: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:08:31.345392: lr: 0.00013 
+2023-02-06 21:08:31.350527: current best_val_eval_criterion_MA is 0.93050 
+2023-02-06 21:08:31.354062: current val_eval_criterion_MA is 0.9306 
+2023-02-06 21:08:31.615384: saving checkpoint... 
+2023-02-06 21:08:36.461066: done, saving took 5.10 seconds 
+2023-02-06 21:08:39.260633: This epoch took 61.035739 s
+ 
+2023-02-06 21:08:39.266598: 
+epoch:  64 
+2023-02-06 21:09:25.864468: train loss : -1.0214 
+2023-02-06 21:09:26.203454: Average global foreground Dice: [0.9315554814137972] 
+2023-02-06 21:09:26.208211: Average foreground Dice: 0.9315554814137972 
+2023-02-06 21:09:26.213248: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:09:32.406865: lr: 0.00013 
+2023-02-06 21:09:32.410936: current best_val_eval_criterion_MA is 0.93060 
+2023-02-06 21:09:32.498390: current val_eval_criterion_MA is 0.9316 
+2023-02-06 21:09:33.549794: saving checkpoint... 
+2023-02-06 21:09:40.191746: done, saving took 6.79 seconds 
+2023-02-06 21:09:41.348060: This epoch took 62.076528 s
+ 
+2023-02-06 21:09:41.353822: 
+epoch:  65 
+2023-02-06 21:10:27.098357: train loss : -1.0171 
+2023-02-06 21:10:27.198430: Average global foreground Dice: [0.9303091821761389] 
+2023-02-06 21:10:27.202530: Average foreground Dice: 0.9303091821761389 
+2023-02-06 21:10:27.207882: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:10:35.232560: lr: 0.00013 
+2023-02-06 21:10:36.466295: current best_val_eval_criterion_MA is 0.93160 
+2023-02-06 21:10:37.120655: current val_eval_criterion_MA is 0.9303 
+2023-02-06 21:10:38.521766: This epoch took 57.163710 s
+ 
+2023-02-06 21:10:38.552488: 
+epoch:  66 
+2023-02-06 21:11:25.303606: train loss : -1.0028 
+2023-02-06 21:11:26.398431: Average global foreground Dice: [0.9252087703208317] 
+2023-02-06 21:11:26.454714: Average foreground Dice: 0.9252087703208317 
+2023-02-06 21:11:26.597439: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:11:32.483601: lr: 0.00013 
+2023-02-06 21:11:32.553940: current best_val_eval_criterion_MA is 0.93160 
+2023-02-06 21:11:32.572735: current val_eval_criterion_MA is 0.9252 
+2023-02-06 21:11:34.606771: This epoch took 56.003644 s
+ 
+2023-02-06 21:11:40.070630: 
+epoch:  67 
+2023-02-06 21:12:31.868743: train loss : -1.0013 
+2023-02-06 21:12:32.301095: Average global foreground Dice: [0.924687645785479] 
+2023-02-06 21:12:32.305500: Average foreground Dice: 0.924687645785479 
+2023-02-06 21:12:32.397398: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:12:38.369538: lr: 0.00013 
+2023-02-06 21:12:38.397378: current best_val_eval_criterion_MA is 0.93160 
+2023-02-06 21:12:38.405819: current val_eval_criterion_MA is 0.9247 
+2023-02-06 21:12:41.408924: This epoch took 58.547466 s
+ 
+2023-02-06 21:12:42.146271: 
+epoch:  68 
+2023-02-06 21:13:28.994726: train loss : -1.0232 
+2023-02-06 21:13:33.701641: Average global foreground Dice: [0.9323643423713144] 
+2023-02-06 21:13:33.907430: Average foreground Dice: 0.9323643423713144 
+2023-02-06 21:13:34.006415: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:13:37.912531: lr: 0.00013 
+2023-02-06 21:13:37.918502: current best_val_eval_criterion_MA is 0.93160 
+2023-02-06 21:13:37.924005: current val_eval_criterion_MA is 0.9324 
+2023-02-06 21:13:38.059443: saving checkpoint... 
+2023-02-06 21:13:44.595402: done, saving took 6.67 seconds 
+2023-02-06 21:13:45.945210: This epoch took 63.786542 s
+ 
+2023-02-06 21:13:45.956999: 
+epoch:  69 
+2023-02-06 21:14:31.997369: train loss : -1.0267 
+2023-02-06 21:14:32.113936: Average global foreground Dice: [0.932311503245238] 
+2023-02-06 21:14:32.198520: Average foreground Dice: 0.932311503245238 
+2023-02-06 21:14:32.202320: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:14:38.294053: lr: 0.00013 
+2023-02-06 21:14:38.303321: current best_val_eval_criterion_MA is 0.93240 
+2023-02-06 21:14:38.307256: current val_eval_criterion_MA is 0.9323 
+2023-02-06 21:14:39.919409: This epoch took 53.957403 s
+ 
+2023-02-06 21:14:40.607674: 
+epoch:  70 
+2023-02-06 21:15:28.149899: train loss : -1.0047 
+2023-02-06 21:15:29.099236: Average global foreground Dice: [0.9240854599177503] 
+2023-02-06 21:15:29.110866: Average foreground Dice: 0.9240854599177503 
+2023-02-06 21:15:29.208920: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:15:34.898900: lr: 0.00013 
+2023-02-06 21:15:34.904737: current best_val_eval_criterion_MA is 0.93240 
+2023-02-06 21:15:34.909774: current val_eval_criterion_MA is 0.9241 
+2023-02-06 21:15:37.370031: This epoch took 56.689733 s
+ 
+2023-02-06 21:15:37.607250: 
+epoch:  71 
+2023-02-06 21:16:23.202783: train loss : -1.0110 
+2023-02-06 21:16:23.302468: Average global foreground Dice: [0.9265874865976761] 
+2023-02-06 21:16:23.307618: Average foreground Dice: 0.9265874865976761 
+2023-02-06 21:16:23.317290: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:16:32.121161: lr: 0.00013 
+2023-02-06 21:16:32.130329: current best_val_eval_criterion_MA is 0.93240 
+2023-02-06 21:16:32.136852: current val_eval_criterion_MA is 0.9266 
+2023-02-06 21:16:34.498133: This epoch took 56.884631 s
+ 
+2023-02-06 21:16:34.628681: 
+epoch:  72 
+2023-02-06 21:17:21.492471: train loss : -1.0237 
+2023-02-06 21:17:21.799927: Average global foreground Dice: [0.9329186782880551] 
+2023-02-06 21:17:21.804682: Average foreground Dice: 0.9329186782880551 
+2023-02-06 21:17:21.898740: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:17:27.698754: lr: 0.00013 
+2023-02-06 21:17:27.703525: current best_val_eval_criterion_MA is 0.93240 
+2023-02-06 21:17:27.709065: current val_eval_criterion_MA is 0.9329 
+2023-02-06 21:17:28.211007: saving checkpoint... 
+2023-02-06 21:17:36.105679: done, saving took 8.39 seconds 
+2023-02-06 21:17:37.481424: This epoch took 62.836956 s
+ 
+2023-02-06 21:17:37.743355: 
+epoch:  73 
+2023-02-06 21:18:24.011617: train loss : -1.0254 
+2023-02-06 21:18:24.202672: Average global foreground Dice: [0.933641037759657] 
+2023-02-06 21:18:24.208763: Average foreground Dice: 0.933641037759657 
+2023-02-06 21:18:24.397466: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:18:30.421475: lr: 0.00013 
+2023-02-06 21:18:30.440868: current best_val_eval_criterion_MA is 0.93290 
+2023-02-06 21:18:30.447382: current val_eval_criterion_MA is 0.9336 
+2023-02-06 21:18:30.638742: saving checkpoint... 
+2023-02-06 21:18:35.499393: done, saving took 5.04 seconds 
+2023-02-06 21:18:36.676980: This epoch took 58.926412 s
+ 
+2023-02-06 21:18:36.686960: 
+epoch:  74 
+2023-02-06 21:19:22.309904: train loss : -1.0166 
+2023-02-06 21:19:22.413872: Average global foreground Dice: [0.9294219763987173] 
+2023-02-06 21:19:22.418736: Average foreground Dice: 0.9294219763987173 
+2023-02-06 21:19:22.426476: (interpret this as an estimate for the Dice of the different classes. This is not exact.) 
+2023-02-06 21:19:30.124064: lr: 0.00013 
+2023-02-06 21:19:30.137289: current best_val_eval_criterion_MA is 0.93360 
+2023-02-06 21:19:30.141577: current val_eval_criterion_MA is 0.9294 
+2023-02-06 21:19:31.400380: This epoch took 54.710084 s
+ 
