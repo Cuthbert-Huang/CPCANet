@@ -1,4 +1,4 @@
-name: UNet2022
+name: CPCANet
 channels:
   - defaults
 dependencies:
