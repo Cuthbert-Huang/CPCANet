@@ -18,7 +18,7 @@ pip install -e .
 
 ## Data-Preparation
 
-CPCANet is a 2D based network, and all data should be expressed in 2D form with ```.nii.gz``` format. You can download the organized dataset from the [link](https://drive.google.com/drive/folders/1b4IVd9pOCFwpwoqfnVpsKZ6b3vfBNL6x?usp=sharing) or download the original data from the link below. If you need to convert other formats (such as ```.jpg```) to the ```.nii.gz```, you can look up the file and modify the [file]() based on your own datasets.
+CPCANet is a 2D based network, and all data should be expressed in 2D form with ```.nii.gz``` format. You can download the organized dataset from the [link](https://drive.google.com/drive/folders/1L1qmnbNq2JfCJG5pukgRGfRzIQ-RN-62?usp=sharing) or download the original data from the link below. If you need to convert other formats (such as ```.jpg```) to the ```.nii.gz```, you can look up the file and modify the [file](https://github.com/Cuthbert-Huang/CPCANet/blob/main/CPCANet/nnunet/dataset_conversion/Task120_ISIC.py) based on your own datasets.
 
 **Dataset I**
 [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/)
@@ -55,7 +55,7 @@ The dataset should be finally organized as follows:
 
 One thing you should be careful of is that folder imagesTr contains both training set and validation set, and correspondingly, the value of ```numTraining``` in dataset.json equals the case number in the imagesTr. The division of the training set and validation set will be done in the network configuration located at ```nnunet/network_configuration/config.py```.
 
-The evaulate.py is used for calculating the evaulation metrics and can be found in the [link](https://drive.google.com/drive/folders/1b4IVd9pOCFwpwoqfnVpsKZ6b3vfBNL6x?usp=sharing) of the organized datasets or you can write it by yourself. The existing of evaulate.py will not affect the data preprocessing, training and testing.
+The evaulate.py is used for calculating the evaulation metrics and can be found in the [link](https://drive.google.com/drive/folders/1L1qmnbNq2JfCJG5pukgRGfRzIQ-RN-62?usp=sharing) of the organized datasets or you can write it by yourself. The existing of evaulate.py will not affect the data preprocessing, training and testing.
 
 ## Data-Preprocessing
 
@@ -88,7 +88,7 @@ bash train_cpcanet_isic.sh
 
 ## Testing
 
-The trained model is placed at this link for model testing.
+The trained model is placed at this [link](https://drive.google.com/file/d/1WInQJsr5uvbgDOubPFj3l_6U6JJP5HPo/view?usp=sharing) for model testing.
 
 If you want to test CPCANet on ACDC.
 
