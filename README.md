@@ -4,7 +4,7 @@ by Hejun Huang, Zuguo Chen*, Ying Zou, Ming Lu, Chaoyang Chen
 
 ## Introduction
 
-This repository is for our paper 'Channel prior convolutional attention for medical image segmentation'.
+This repository is for our paper '[Channel prior convolutional attention for medical image segmentation](https://arxiv.org/abs/2306.05196)'.
 
 ## Installation
 
